@@ -1,7 +1,7 @@
 CREATE DATABASE audiosphere;
 
-CREATE TABLE user(
-    user_id SERIAL PRIMARY KEY,
+CREATE TABLE account(
+    account_id SERIAL PRIMARY KEY,
     username VARCHAR(20) UNIQUE NOT NULL,
     password VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL
@@ -29,8 +29,8 @@ CREATE TABLE album(
 CREATE TABLE playlist(
     playlist_id SERIAL PRIMARY KEY,
     playlist_name VARCHAR(100) NOT NULL,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id)
+    account_id INT,
+    FOREIGN KEY (account_id) REFERENCES account(account_id)
 );
 
 CREATE TABLE playlist_item(
@@ -38,13 +38,5 @@ CREATE TABLE playlist_item(
     playlist_id INT,
     song_id INT,
     FOREIGN KEY (playlist_id) REFERENCES playlist(playlist_id),
-    FOREIGN KEY (song_id) REFERENCES song(song_id)
-);
-
-CREATE TABLE like(
-    like_id SERIAL PRIMARY KEY,
-    user_id INT,
-    audio_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
     FOREIGN KEY (song_id) REFERENCES song(song_id)
 );
